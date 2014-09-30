@@ -1,60 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Test Keyboard.js</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-<table class="keyboard">
-    <tbody>
-    <tr>
-        <td>q</td>
-        <td>w</td>
-        <td>e</td>
-        <td>r</td>
-        <td>t</td>
-        <td>y</td>
-        <td>u</td>
-        <td>i</td>
-        <td>o</td>
-        <td>p</td>
-        <td>[</td>
-        <td>]</td>
-    </tr>
-    <tr>
-        <td>a</td>
-        <td>s</td>
-        <td>d</td>
-        <td>f</td>
-        <td>g</td>
-        <td>h</td>
-        <td>j</td>
-        <td>k</td>
-        <td>l</td>
-        <td>;</td>
-        <td>'</td>
-    </tr>
-    <tr>
-        <td>z</td>
-        <td>x</td>
-        <td>c</td>
-        <td>v</td>
-        <td>b</td>
-        <td>n</td>
-        <td>m</td>
-        <td>,</td>
-        <td>.</td>
-        <td>/</td>
-    </tr>
-    </tbody>
-</table>
+<script src="vendor/jquery.js"></script>
+<script data-main="js/main" src="vendor/require.js"></script>
 
-<div class="output">
+<div class="container">
+    <div class="keyboard-container"></div>
 
+    <div class="console">
+        <textarea class="console__output"></textarea>
+    </div>
 </div>
 
-<script src="vendor/jquery.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>
