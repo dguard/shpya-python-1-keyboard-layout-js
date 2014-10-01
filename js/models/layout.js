@@ -1,3 +1,4 @@
+"use strict";
 define(function(require){
     var $ = require('jquery'),
         symbol = require('models/symbol'),
@@ -9,22 +10,22 @@ define(function(require){
 
         var newKeys = [];
 
-        for(var c = 0; c < this.LIST_LAYOUT_TYPE.length; c++) {
-            var layout_type = this.LIST_LAYOUT_TYPE[c];
+        for(var c = 0; c < this.LIST_LAYOUT_MODE.length; c++) {
+            var layout_mode = this.LIST_LAYOUT_MODE[c];
 
-            for(var i = 0; i < options.keys[layout_type].length; i++) {
-                for(var j = 0; j < options.keys[layout_type][i].length; j++) {
-                    options.keys[layout_type][i][j] = key.create({
-                        text: options.keys[layout_type][i][j],
-                        "symbol": symbol.create({'text': options.keys[layout_type][i][j]}),
+            for(var i = 0; i < options.keys[layout_mode].length; i++) {
+                for(var j = 0; j < options.keys[layout_mode][i].length; j++) {
+                    options.keys[layout_mode][i][j] = key.create({
+                        "text": options.keys[layout_mode][i][j],
+                        "symbol": symbol.create({'text': options.keys[layout_mode][i][j]}),
                         "posX": j,
                         "posY": i,
-                        layout_type: layout_type
+                        "layout_mode": layout_mode
                     });
                 }
             }
             newKeys = [].concat.apply(newKeys,
-                [].concat.apply([], options.keys[layout_type])
+                [].concat.apply([], options.keys[layout_mode])
             );
         }
         options.keys = newKeys;
@@ -32,6 +33,18 @@ define(function(require){
         return $.extend({
             keys: [],
             filters: [],
+            statistics: {
+                maxRate: 0
+            },
+            countMaxRate: function(){
+                var max = Number.MIN_VALUE;
+                for(var i = 0; i < this.keys.length; i++) {
+                    if(this.keys[i].rate > max) {
+                        max = this.keys[i].rate;
+                    }
+                }
+                this.statistics.maxRate = max;
+            },
             getElementByField: function(fieldName, value){
                 for(var i = 0; i < this.keys.length; i++) {
                     if(this.keys[i][fieldName] && this.keys[i][fieldName] === value) {
@@ -43,17 +56,17 @@ define(function(require){
         }, options);
     };
 
-    var LAYOUT_TYPE_STANDARD = 'standard',
-        LAYOUT_TYPE_UPPERCASE = 'uppercase';
+    var LAYOUT_MODE_STANDARD = 'standard',
+        LAYOUT_MODE_UPPERCASE = 'uppercase';
 
     return {
         LANGUAGE_RU: 'ru',
         LANGUAGE_EN: 'en',
-        LAYOUT_TYPE_STANDARD: LAYOUT_TYPE_STANDARD,
-        LAYOUT_TYPE_UPPERCASE: LAYOUT_TYPE_UPPERCASE,
-        LIST_LAYOUT_TYPE: [
-            LAYOUT_TYPE_STANDARD,
-            LAYOUT_TYPE_UPPERCASE
+        LAYOUT_MODE_STANDARD: LAYOUT_MODE_STANDARD,
+        LAYOUT_MODE_UPPERCASE: LAYOUT_MODE_UPPERCASE,
+        LIST_LAYOUT_MODE: [
+            LAYOUT_MODE_STANDARD,
+            LAYOUT_MODE_UPPERCASE
         ],
         create: create
     };

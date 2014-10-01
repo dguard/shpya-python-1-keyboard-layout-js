@@ -3,6 +3,7 @@
 <head>
     <title>Test Keyboard.js</title>
     <link rel="stylesheet" href="css/main.css">
+    <meta charset="utf-8">
 </head>
 <body>
 
@@ -15,6 +16,40 @@
     <div class="console">
         <textarea class="console__output"></textarea>
     </div>
+
+    <div class="row">
+        <div class="column1">
+            <div class="layouts">
+                <h2>Раскладки</h2>
+
+                <div class="layouts__list">
+                </div>
+            </div>
+
+            <div class="keyboard-view">
+                <label for="keyboard-view__select">Показывать</label>
+
+                <select id="keyboard-view__select">
+                    <option value="0">Символы</option>
+                    <option value="1">Рейтинг эффективности</option>
+                    <option value="1">Эффективность относительно максимальной</option>
+                    <option value="2">Количество использований</option>
+                    <option value="3">Процент использования</option>
+                    <option value="3">Эффективность и использование от максимального</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="filters column1">
+            <h2>Фильтры</h2>
+
+            <div class="filters__list">
+            </div>
+        </div>
+    </div>
+
+    <div class="statistics"></div>
+
 </div>
 
 </body>

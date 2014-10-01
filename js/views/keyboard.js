@@ -1,3 +1,4 @@
+"use strict";
 define(function(require){
     var $ = require('jquery');
 
@@ -5,7 +6,7 @@ define(function(require){
         SIZE_STANDARD: 'standard',
         SIZE_MEDIUM: 'medium',
         SIZE_LARGE: 'large',
-        ANIMATION_SPEED: 100,
+        ANIMATION_SPEED: 0,
         initialize: function(options){
             this.$container = options.$container;
             this.layout = options.layout;
@@ -21,13 +22,14 @@ define(function(require){
 
             for(var i = 0; i < keys.length; i++) { // rows as arrays
                 var key = keys[i];
-                if(key['layout_type'] !== 'standard') continue;
+                if(key['layout_mode'] !== 'standard') continue;
                 if(key['posX'] === 0) {
                     $row && ($table.append($row));
                     $row = $('<div>', {'class': 'keyboard__row'});
                 }
                 $row.append(key.render(field));
             }
+            $table.append($row);
             this.$container.html($table);
             return this;
         },

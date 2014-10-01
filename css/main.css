@@ -68,3 +68,36 @@ body {
     background: #ff0000;
     cursor: default;
 }
+
+.column1 {
+    width: 480px;
+    float: left;
+}
+
+.row {
+    overflow: hidden;
+}
+
+.filters {
+    text-align: left;
+}
+
+.filters label {
+    padding-left: 10px;
+}
+
+.layouts {
+    margin-bottom: 20px;
+}
+
+.layouts label {
+    display: block;
+}
+
+.keyboard-view {
+    overflow: hidden;
+}
+
+.keyboard-view label {
+    display: block;
+}
