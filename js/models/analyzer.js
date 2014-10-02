@@ -10,6 +10,7 @@ define(function(require){
 
             for(var i = 0; i < text.length; i++) {
                 for(var j = 0; j < this.layout.keys.length; j++) {
+                    debugger;
                     this.analyzeKey(this.layout.keys[j], text[i]);
                 }
             }
@@ -19,7 +20,7 @@ define(function(require){
         analyzeKey: function(key, symbol){
             for(var k = 0; k < key.symbols.length; k++) {
 
-                if(key.symbols[k] === symbol) {
+                if(key.symbols[k].text === symbol) {
                     key.symbols[k].usage++;
                     key.usage++;
 

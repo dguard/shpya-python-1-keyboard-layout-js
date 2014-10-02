@@ -60,7 +60,7 @@ define(function(require){
             $(document).on('change', '#keyboard-view__select', $.proxy(function(e){
                 var val = e.target.selectedIndex;
                 if(val === KEYBOARD_VIEW_SYMBOLS) {
-                    field = 'text';
+                    field = 'symbol.text';
                 } else if (val === KEYBOARD_VIEW_RATE_OF_EFFICIENCY) {
                     field = 'rate';
                 } else if (val === KEYBOARD_VIEW_RATE_OF_MAX_EFFICIENCY) {
@@ -72,7 +72,8 @@ define(function(require){
                 } else if (val === KEYBOARD_VIEW_RATIO_EFFICIENCY) {
                     field = 'ratioEfficiency';
                 }
-                this.model.keyboard.view.render(field);
+                debugger;
+                this.model.keyboard.view.render(field, this.model.keyboard.layout.layout_mode);
             }, this));
 
             $(document).on('click', '.filters__list [type=checkbox]', $.proxy(function(e){

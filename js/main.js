@@ -16,11 +16,12 @@ require([
 ], function($, layoutCollection, keyboard, app, analyzer, filter, layout) {
     var kb = keyboard.initialize({
         layout: $.extend(layoutCollection.items[layoutCollection.LAYOUT_TYPE_QWERTY], {
-            filters: filter.LIST_FILTER_TYPE
+            filters: filter.LIST_FILTER_TYPE,
+            layout_mode: layout.LAYOUT_MODE_STANDARD
         }),
         view: { "$container": $('.keyboard-container') }
     });
-    kb.view.render('symbol.text', layout.LAYOUT_MODE_STANDARD);
+    kb.view.render('symbol.text');
 
     var theApp = app.initialize({ keyboard: kb });
     theApp.view.render();

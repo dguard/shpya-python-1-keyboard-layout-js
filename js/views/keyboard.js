@@ -14,7 +14,7 @@ define(function(require){
 
             return this;
         },
-        render: function(field, layout_mode){
+        render: function(field){
             var $table = $('<div>', {'class': 'keyboard'});
             var keys = this.model.layout.keys;
 
@@ -28,7 +28,7 @@ define(function(require){
                     $row = $('<div>', {'class': 'keyboard__row'});
                 }
                 if(useSymbolField) {
-                    $row.append(key.renderSymbol(field, layout_mode));
+                    $row.append(key.renderSymbol(field, this.model.layout.layout_mode));
                 } else {
                     $row.append(key.render(field));
                 }
