@@ -17,12 +17,12 @@ define(function(require){
                 render: function(field){
                     var self = this;
                     var val = this[field];
-                    if(val == '\n') {
+                    if(val == '\n' && val !== 0) {
                         val = "&nbsp;";
                     }
                     return $('<div>', {
                         'class': 'key key_size_' + self['size']
-                    }).text(val);
+                    }).html(val);
                 },
                 renderSymbol: function(field, layout_mode){
                     var self = this;
@@ -30,8 +30,7 @@ define(function(require){
                     for(var i = 0; i < this.symbols.length; i++) {
                         if(this.symbols[i]["layout_mode"] === layout_mode) {
                             var val = this.symbols[i][field];
-                            if(val == '\n') {
-                                debugger;
+                            if(val == '\n' && val !== 0) {
                                 val = "&nbsp;";
                             }
                             return $('<div>', {

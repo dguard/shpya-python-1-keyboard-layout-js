@@ -103,6 +103,11 @@ define(function(require){
                         this.filters.splice(i, 1);
                     }
                 }
+            },
+            countKeyUsagePercent: function(){
+                for(var i = 0; i < this.keys.length; i++) {
+                    this.keys[i].usagePercent = helper.rtrimNulls(this.keys[i].usage / this.statistics['totalUsage'] * 100, 1);
+                }
             }
         }, options);
     };

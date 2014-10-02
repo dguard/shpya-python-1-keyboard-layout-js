@@ -15,9 +15,14 @@
 
     <h1 style="margin-bottom: 20px">Тестируй раскладки!</h1>
 
-    <div class="row">
+    <div class="loader">
+        <img src="css/loader.gif" width="128">
+        <h3>Подождите, идет загрузка...</h3>
+    </div>
+
+    <div class="row app" style="display: none">
         <div class="filters col-md-4 jumbotron">
-            <h2 class="text-center">Фильтры</h2>
+            <h2 class="text-center">Оценивание</h2>
 
             <div class="filters__list"></div>
 
@@ -37,9 +42,11 @@
                             <option value="0">Символы</option>
                             <option value="1">Рейтинг эффективности</option>
                             <option value="2">Эффективность относительно максимальной</option>
-                            <option value="3">Количество использований</option>
-                            <option value="4">Процент использования</option>
-                            <option value="5">Эффективность и использование от максимального</option>
+                            <option value="3">Количество использований символов</option>
+                            <option value="4">Процент использования символов</option>
+                            <option value="5">Количество использований клавиш</option>
+                            <option value="6">Процент использования клавиш</option>
+                            <option value="7">Эффективность и использование от максимального</option>
                         </select>
 
                     </div>
@@ -47,25 +54,38 @@
             </div>
             <div class="row text-center" style="margin-top: 20px">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-success">Анализировать</button>
+                    <button id="id_analyze" type="button" class="btn btn-success">Анализировать</button>
                 </div>
             </div>
         </div>
         <div class="keyboard-section col-md-8">
             <div class="keyboard-container"></div>
 
-            <div class="console">
-                <textarea class="console__output"></textarea>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="console">
+                        <h2>Машинитска</h2>
+                        <textarea class="console__output"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="statistics">
+                        <h2>Статистика</h2>
+                        <p>Здесь должна быть какая-то статистика</p>
+                        <!--<ul class="statistics__list">-->
+                            <!--<li>Нажато клавиш: 2000</li>-->
+                            <!--<li>Самая популярная клавиша: </li>-->
+                            <!--<li>Скорость набора: </li>-->
+                            <!--<li>Самая популярная клавиша: </li>-->
+                            <!--<li>Процент чередования рук: 10%</li>-->
+                            <!--<li>Пробел нажат раз: 10</li>-->
+                            <!--<li>Shift нажат раз: 10</li>-->
+                            <!--<li>Enter нажат раз: 10</li>-->
+                        <!--</ul>-->
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!--<div class="statistics">-->
-            <!--<h2>Статистика</h2>-->
-            <!--<ul class="statistics__list">-->
-                <!--<li>Использовано клавиш: 2000</li>-->
-                <!--<li>Процент чередования рук: 10%</li>-->
-            <!--</ul>-->
-        <!--</div>-->
 
     </div>
 

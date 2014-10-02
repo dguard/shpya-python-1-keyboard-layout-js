@@ -11,7 +11,7 @@ define(function(require){
 
     var KEY_ENTER = {"text": '\n', "size": keyboardView.SIZE_MEDIUM};
     var KEY_SPACE = {"text": ' ', "size": keyboardView.SIZE_LARGE};
-    var KEY_SHIFT = {"text": "shift", "size": keyboardView.SIZE_MEDIUM};
+    var KEY_SHIFT = {"text": "Shift", "size": keyboardView.SIZE_MEDIUM};
 
     obj['LIST_LAYOUT_TYPE'] = [
         obj.LAYOUT_TYPE_QWERTY,

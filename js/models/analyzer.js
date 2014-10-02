@@ -36,11 +36,14 @@ define(function(require){
                 !this.layout.statistics['changeHandsCount'] && (this.layout.statistics['changeHandsCount'] = 0);
                 this.layout.statistics['changeHandsCount']++;
             }
+            !this.layout.statistics['totalUsage'] && (this.layout.statistics['totalUsage'] = 0);
+            this.layout.statistics['totalUsage']++;
         },
         _updatePostFilters: function(){
             for(var i = 0; i < this.layout.filters.length; i++) {
                 filter.items[this.layout.filters[i]].run(this.layout.keys);
             }
+            this.layout.countKeyUsagePercent();
             this.layout.countMaxRate();
             this.layout.countMaxUsage();
             for(i = 0; i < this.layout.keys.length; i++) {

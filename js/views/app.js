@@ -23,6 +23,7 @@ define(function(require){
             this.model.keyboard.view.render(this.model.field);
         },
         _renderLayouts: function(){
+            $('.layouts__list').empty();
             var $label = $('<label>', {
                 'for': 'id_layouts'
             }).text('Раскладка');
@@ -41,6 +42,7 @@ define(function(require){
             $('.layouts__list').append($label, $select, '<br>');
         },
         _renderFilters: function(){
+            $('.filters__list').empty();
             for(var i =0; i < filter.items.length;i++) {
                 var id = 'id_filter_' + i;
                 var $label = $('<label>', {
@@ -64,6 +66,19 @@ define(function(require){
             $(document).on('click', '.filters__list [type=checkbox]', $.proxy(this.onChangeFilter, this));
             $(document).on('change', '#keyboard-view__select', $.proxy(this.onChangeField, this));
             $(document).on('change', '#id_layouts', $.proxy(this.onChangeLayout, this));
+            $(document).on('click', '#id_analyze', $.proxy(this.onClickAnalyze, this));
+        },
+        onClickAnalyze: function(e){
+            if(this.model.running) return;
+            this.model.running = true;
+            this.startLoading();
+
+            this.model.loadState();
+            this.model.canRun = false;
+            setTimeout($.proxy(function(){
+                this.model.canRun = true;
+                this.model.run();
+            }, this), this.model.keyboard.view.ANIMATION_SPEED*2+100);
         },
         onChangeLayout: function(e){
             this.model.saveState();
@@ -84,9 +99,12 @@ define(function(require){
         },
         renderOutput: function($output){
             var self = this;
+            $output.empty();
             highlightKey(self.model.text, 0);
 
             function highlightKey(text, index){
+                if(!self.model.canRun) { return; }
+
                 var $dfd = self.model.keyboard.view.highlightKey('text', text[index]);
                 $dfd.done(function(data){
                     if(data.key) {
@@ -98,6 +116,14 @@ define(function(require){
                     }
                 });
             }
+        },
+        startLoading: function(){
+            $('.loader').show();
+            $('.app').hide();
+        },
+        stopLoading: function(){
+            $('.loader').hide();
+            $('.app').show();
         }
     };
 });

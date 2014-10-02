@@ -6,6 +6,8 @@ body {
 .jumbotron {
     padding-top: 20px;
     padding-bottom: 20px;
+    background: #2ECC71;
+    color: #fff;
 }
 .keyboard-section {
     padding-top: 30px;
@@ -21,25 +23,32 @@ body {
 }
 
 .console {
-    background: #000;
+    background: #9B59B6;
     padding: 20px;
-    height: 200px;
+    height: 300px;
     margin-bottom: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.console h2 {
+    margin: 0 0 10px;
+    color: #fff;
 }
 
 .console__output {
     display: block;
     border: 0;
-    width: 100%;
-    height: 100%;
     text-align: left;
-    background: #000;
-    color: #18F018;
+    background: #9B59B6;
+    color: #fff;
     font-family: sans-serif;
     resize: none;
     font-size: 20px;
     outline: none;
     overflow: hidden;
+    width: 100%;
+    height: 217px;
 }
 
 .keyboard__row {
@@ -48,7 +57,7 @@ body {
 .key {
     height: 30px;
     border-radius: 5px;
-    background: #000;
+    background: #3498db;
     color: #fff;
     text-align: center;
     cursor: pointer;
@@ -71,7 +80,7 @@ body {
 }
 
 .key_highlighted {
-    background: #ff0000;
+    background: #154763;
     cursor: default;
 }
 
@@ -93,4 +102,25 @@ body {
 
 .keyboard-view label {
     display: block;
+}
+.btn-success {
+    background: #03A678;
+}
+
+.statistics {
+    background: #e74c3c;
+    color: #fff;
+    padding: 20px;
+    height: 300px;
+    margin: 0 0 20px;
+    border-radius: 5px;
+}
+
+.statistics h2 {
+    margin: 0 0 10px;
+}
+
+.statistics ul {
+    text-align: left;
+    list-style: none;
 }

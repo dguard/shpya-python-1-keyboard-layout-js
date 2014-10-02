@@ -7,7 +7,7 @@ define(function(require){
         SIZE_STANDARD: 'standard',
         SIZE_MEDIUM: 'medium',
         SIZE_LARGE: 'large',
-        ANIMATION_SPEED: 100,
+        ANIMATION_SPEED: 50,
         initialize: function(options){
             this.$container = options["$container"];
             this.model = options["model"];
@@ -72,7 +72,7 @@ define(function(require){
 
                     // highlights shift if required
                     if(this.model.layout.layout_mode === layout.LAYOUT_MODE_UPPERCASE) {
-                        var shift = this.model.layout.getElementByText("shift");
+                        var shift = this.model.layout.getElementByText("Shift");
                         this._highlightKey($activeKeyboard, shift);
                     }
                     this._highlightKey($activeKeyboard, key);

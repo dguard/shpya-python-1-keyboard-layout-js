@@ -6,11 +6,13 @@ define(function(require){
         layoutCollection = require('collections/layout'),
         filter = require('models/filter'),
         layout = require('models/layout'),
-        keyboard = require('models/keyboard');
+        keyboard = require('models/keyboard'),
+        analyzer = require('models/analyzer');
 
     return {
         initialize: function(options){
             this.text = options['text'];
+            this.canRun = true;
             this.view = appView.initialize($.extend({
                 model: this
             }, options['view']));
@@ -48,10 +50,14 @@ define(function(require){
                 field = 'rate';
             } else if (keyboard.KEYBOARD_VIEW_RATE_OF_MAX_EFFICIENCY === val) {
                 field = 'rateOfMax';
-            } else if (keyboard.KEYBOARD_VIEW_USAGE === val) {
+            } else if (keyboard.KEYBOARD_VIEW_SYMBOL_USAGE === val) {
                 field = 'symbol.usage';
-            } else if (keyboard.KEYBOARD_VIEW_USAGE_PERCENT === val) {
+            } else if (keyboard.KEYBOARD_VIEW_SYMBOL_USAGE_PERCENT === val) {
                 field = 'symbol.usagePercent';
+            } else if (keyboard.KEYBOARD_VIEW_KEY_USAGE === val) {
+                field = 'usage';
+            } else if (keyboard.KEYBOARD_VIEW_KEY_USAGE_PERCENT === val) {
+                field = 'usagePercent';
             } else if (keyboard.KEYBOARD_VIEW_RATIO_EFFICIENCY === val) {
                 field = 'ratioEfficiency';
             }
@@ -74,6 +80,14 @@ define(function(require){
                 );
             });
             return filters;
+        },
+        run: function(){
+            this.running = true;
+            analyzer.analyze(this.text, this.keyboard.layout);
+            this.view.render();
+            this.view.renderOutput($('.console__output'));
+            this.view.stopLoading();
+            this.running = false;
         }
     }
 });
