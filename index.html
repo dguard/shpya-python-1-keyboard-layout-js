@@ -11,11 +11,9 @@
 <script src="vendor/jquery.js"></script>
 <script data-main="js/main" src="vendor/require.js"></script>
 
-<div class="container">
+<div class="container" style="min-width: 500px">
 
-    <div class="page-header">
-        <h1>Тестируй раскладки!</h1>
-    </div>
+    <h1 style="margin-bottom: 20px">Тестируй раскладки!</h1>
 
     <div class="row">
         <div class="filters col-md-4 jumbotron">
@@ -24,16 +22,16 @@
             <div class="filters__list"></div>
 
             <h2 class="text-center">Клавиатура</h2>
-            <div class="row">
+            <div class="row text-center" style="margin-bottom: -10px">
                 <div class="col-md-6">
                     <div class="layouts">
-                        <div class="layouts__list text-center">
+                        <div class="layouts__list">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="keyboard-view">
-                        <label for="keyboard-view__select" class="text-center">Показывать</label>
+                        <label for="keyboard-view__select">Показывать</label>
 
                         <select id="keyboard-view__select" class="form-control">
                             <option value="0">Символы</option>
@@ -45,6 +43,11 @@
                         </select>
 
                     </div>
+                </div>
+            </div>
+            <div class="row text-center" style="margin-top: 20px">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success">Анализировать</button>
                 </div>
             </div>
         </div>

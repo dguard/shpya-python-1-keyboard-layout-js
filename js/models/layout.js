@@ -39,9 +39,15 @@ define(function(require){
                             });
                         }
                     } else if(this.LAYOUT_MODE_UPPERCASE === layout_mode) {
+                        if(typeof options.keys[layout_mode][i][j] === "object") {
+                            var text = options.keys[layout_mode][i][j]['text'];
+                        } else {
+                            var text = options.keys[layout_mode][i][j]
+                        }
+
                         newKeys[k].symbols.push(
                             symbol.create({
-                                "text": options.keys[layout_mode][i][j],
+                                "text": text,
                                 "mod": "shift",
                                 "layout_mode": layout_mode
                             })

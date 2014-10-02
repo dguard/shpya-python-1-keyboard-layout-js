@@ -7,25 +7,21 @@ body {
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
-/*.container {*/
-    /*width: 960px;*/
-    /*margin: 0 auto;*/
-/*}*/
-
 .keyboard-section {
     padding-top: 30px;
 }
 
 .keyboard {
-    /*display: inline-block;*/
-    /*text-align: center;*/
     height: 200px;
+    display: none;
+}
+
+.keyboard.active {
+    display: block;
 }
 
 .console {
     background: #000;
-    /*width: 400px;*/
     padding: 20px;
     height: 200px;
     margin-bottom: 20px;
@@ -50,7 +46,6 @@ body {
 }
 
 .key {
-    width: 30px;
     height: 30px;
     border-radius: 5px;
     background: #000;
@@ -64,6 +59,7 @@ body {
 }
 
 .key_size_standard {
+    width: 30px;
 }
 
 .key_size_medium {
@@ -74,27 +70,14 @@ body {
     width: 160px;
 }
 
-.key_hightlighted {
+.key_highlighted {
     background: #ff0000;
     cursor: default;
-}
-
-/*.column1 {*/
-    /*width: 480px;*/
-    /*float: left;*/
-/*}*/
-
-.row {
-    overflow: hidden;
 }
 
 .filters {
     text-align: left;
 }
-
-/*.filters label {*/
-    /*padding-left: 10px;*/
-/*}*/
 
 .layouts {
     margin-bottom: 20px;

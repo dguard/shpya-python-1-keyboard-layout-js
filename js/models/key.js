@@ -16,9 +16,13 @@ define(function(require){
                 "usage": 0,
                 render: function(field){
                     var self = this;
+                    var val = this[field];
+                    if(val == '\n') {
+                        val = "&nbsp;";
+                    }
                     return $('<div>', {
                         'class': 'key key_size_' + self['size']
-                    }).text(this[field]);
+                    }).text(val);
                 },
                 renderSymbol: function(field, layout_mode){
                     var self = this;
@@ -27,6 +31,7 @@ define(function(require){
                         if(this.symbols[i]["layout_mode"] === layout_mode) {
                             var val = this.symbols[i][field];
                             if(val == '\n') {
+                                debugger;
                                 val = "&nbsp;";
                             }
                             return $('<div>', {
