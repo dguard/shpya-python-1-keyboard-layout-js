@@ -56,6 +56,15 @@ define(function(require){
                 }
                 this.statistics.maxRate = max;
             },
+            countMaxUsage: function(){
+                var max = Number.MIN_VALUE;
+                for(var i = 0; i < this.keys.length; i++) {
+                    if(this.keys[i].usage > max) {
+                        max = this.keys[i].usage;
+                    }
+                }
+                this.statistics.maxUsage = max;
+            },
             getElementByText: function(value){
                 for(var i = 0; i < this.keys.length; i++) {
                     for(var j = 0; j < this.keys[i].symbols.length; j++) {

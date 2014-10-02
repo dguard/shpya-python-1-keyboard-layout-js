@@ -42,6 +42,7 @@ define(function(require){
                 filter.items[this.layout.filters[i]].run(this.layout.keys);
             }
             this.layout.countMaxRate();
+            this.layout.countMaxUsage();
             for(i = 0; i < this.layout.keys.length; i++) {
                 for(var j = 0; j < this.layout.keys[i].symbols.length; j++) {
                     this.countUsagePercent(this.layout.keys[i]);
@@ -63,7 +64,7 @@ define(function(require){
             for(var j = 0; j < key.symbols.length; j++) {
                 key.ratioEfficiency = helper.rtrimNulls(
                     (key.rate * key.symbols[j].usage)
-                        / (this.layout['statistics']['maxRate'] * this.layout['statistics']['textCount']) * 100, 1
+                        / (this.layout['statistics']['maxRate'] * this.layout['statistics']['maxUsage']) * 100, 1
                 );
             }
         }
