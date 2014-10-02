@@ -7,7 +7,7 @@ define(function(require){
 
     return {
         initialize: function(options){
-            this.keyboard = options['keyboard'];
+            this.model = options['model'];
             return this;
         },
         render: function(){
@@ -55,29 +55,32 @@ define(function(require){
             var KEYBOARD_VIEW_USAGE_PERCENT = 4;
             var KEYBOARD_VIEW_RATIO_EFFICIENCY = 5;
 
+            var field;
+
             $(document).on('change', '#keyboard-view__select', $.proxy(function(e){
                 var val = e.target.selectedIndex;
                 if(val === KEYBOARD_VIEW_SYMBOLS) {
-                    this.keyboard.render('text');
+                    field = 'text';
                 } else if (val === KEYBOARD_VIEW_RATE_OF_EFFICIENCY) {
-                    this.keyboard.render('rate');
+                    field = 'rate';
                 } else if (val === KEYBOARD_VIEW_RATE_OF_MAX_EFFICIENCY) {
-                    this.keyboard.render('rateOfMax');
+                    field = 'rateOfMax';
                 } else if (val === KEYBOARD_VIEW_USAGE) {
-                    this.keyboard.render('symbol.usage');
+                    field = 'symbol.usage';
                 } else if (val === KEYBOARD_VIEW_USAGE_PERCENT) {
-                    this.keyboard.render('symbol.usagePercent');
+                    field = 'symbol.usagePercent';
                 } else if (val === KEYBOARD_VIEW_RATIO_EFFICIENCY) {
-                    this.keyboard.render('ratioEfficiency');
+                    field = 'ratioEfficiency';
                 }
+                this.model.keyboard.view.render(field);
             }, this));
 
             $(document).on('click', '.filters__list [type=checkbox]', $.proxy(function(e){
                 var filter = e.currentTarget.value;
                 if(e.currentTarget.checked) {
-                    this.keyboard.layout.addFilter(filter);
+                    this.model.keyboard.layout.addFilter(filter);
                 } else {
-                    this.keyboard.layout.removeFilter(filter);
+                    this.model.keyboard.layout.removeFilter(filter);
                 }
             }, this));
         },
@@ -86,7 +89,7 @@ define(function(require){
             highlightKey(text, 0);
 
             function highlightKey(text, index){
-                var $dfd = self.keyboard.view.highlightKey('text', text[index]);
+                var $dfd = self.model.keyboard.view.highlightKey('text', text[index]);
                 $dfd.done(function(data){
                     if(data.key) {
                         $output.append(data.symbol);

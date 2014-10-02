@@ -9,26 +9,23 @@ require([
     "jquery",
     'collections/layout',
     'models/keyboard',
-    'views/app',
+    'models/app',
     'models/analyzer',
     'collections/filter',
     'models/layout'
-], function($, layoutCollection, keyboard, appView, analyzer, filter, layout) {
-    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-    var layoutQwerty = layoutCollection.items[layoutCollection.LAYOUT_TYPE_QWERTY];
-    layoutQwerty.filters = filter.LIST_FILTER_TYPE;
-    analyzer.analyze(text, layoutQwerty);
-
+], function($, layoutCollection, keyboard, app, analyzer, filter, layout) {
     var kb = keyboard.initialize({
-        layout: layoutQwerty,
-        view: {
-            "$container": $('.keyboard-container')
-        }
+        layout: $.extend(layoutCollection.items[layoutCollection.LAYOUT_TYPE_QWERTY], {
+            filters: filter.LIST_FILTER_TYPE
+        }),
+        view: { "$container": $('.keyboard-container') }
     });
     kb.view.render('symbol.text', layout.LAYOUT_MODE_STANDARD);
 
-    var app_view = appView.initialize({ keyboard: kb });
-    app_view.render();
-    app_view.renderOutput($('.console__output'), text);
+    var theApp = app.initialize({ keyboard: kb });
+    theApp.view.render();
+
+    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    analyzer.analyze(text, kb.layout);
+    theApp.view.renderOutput($('.console__output'), text);
 });
