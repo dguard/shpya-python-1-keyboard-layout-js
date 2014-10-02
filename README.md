@@ -1,5 +1,6 @@
-MagicKeyboard - Тестирование раскладок клавиатуры
+MagicKeyboard
 ================================
+Тестирование раскладок клавиатуры
 
-# Demo:
+# Demo: 
 http://magic-keyboard.fst1.ru/
