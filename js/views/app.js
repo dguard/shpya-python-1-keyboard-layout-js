@@ -56,7 +56,6 @@ define(function(require){
             var KEYBOARD_VIEW_RATIO_EFFICIENCY = 5;
 
             $(document).on('change', '#keyboard-view__select', $.proxy(function(e){
-                debugger;
                 var val = e.target.selectedIndex;
                 if(val === KEYBOARD_VIEW_SYMBOLS) {
                     this.keyboard.render('text');
@@ -72,13 +71,22 @@ define(function(require){
                     this.keyboard.render('ratioEfficiency');
                 }
             }, this));
+
+            $(document).on('click', '.filters__list [type=checkbox]', $.proxy(function(e){
+                var filter = e.currentTarget.value;
+                if(e.currentTarget.checked) {
+                    this.keyboard.layout.addFilter(filter);
+                } else {
+                    this.keyboard.layout.removeFilter(filter);
+                }
+            }, this));
         },
         renderOutput: function($output, text){
             var self = this;
             highlightKey(text, 0);
 
             function highlightKey(text, index){
-                var $dfd = self.keyboard.highlightKey('text', text[index]);
+                var $dfd = self.keyboard.view.highlightKey('text', text[index]);
                 $dfd.done(function(data){
                     if(data.key) {
                         $output.append(data.symbol);

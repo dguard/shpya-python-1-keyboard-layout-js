@@ -8,7 +8,7 @@ require.config({
 require([
     "jquery",
     'collections/layout',
-    'views/keyboard',
+    'models/keyboard',
     'views/app',
     'models/analyzer',
     'collections/filter',
@@ -21,9 +21,12 @@ require([
     analyzer.analyze(text, layoutQwerty);
 
     var kb = keyboard.initialize({
-        '$container': $('.keyboard-container'),
-        layout: layoutQwerty
-    }).render('symbol.text', layout.LAYOUT_MODE_STANDARD);
+        layout: layoutQwerty,
+        view: {
+            "$container": $('.keyboard-container')
+        }
+    });
+    kb.view.render('symbol.text', layout.LAYOUT_MODE_STANDARD);
 
     var app_view = appView.initialize({ keyboard: kb });
     app_view.render();

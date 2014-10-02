@@ -65,6 +65,17 @@ define(function(require){
                     }
                 }
                 return null;
+            },
+            addFilter: function(filter){
+                this.filters.push(filter);
+                // TODO add array_unique
+            },
+            removeFilter: function(filter){
+                for(var i = 0; i < this.filters.length; i++) {
+                    if(this.filters[i] == filter) {
+                        this.filters.splice(i, 1);
+                    }
+                }
             }
         }, options);
     };

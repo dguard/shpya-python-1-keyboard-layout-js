@@ -8,15 +8,15 @@ define(function(require){
         SIZE_LARGE: 'large',
         ANIMATION_SPEED: 0,
         initialize: function(options){
-            this.$container = options.$container;
-            this.layout = options.layout;
+            this.$container = options["$container"];
+            this.model = options["model"];
             options['animation_speed'] && (this.ANIMATION_SPEED = options['animation_speed']);
 
             return this;
         },
         render: function(field, layout_mode){
             var $table = $('<div>', {'class': 'keyboard'});
-            var keys = this.layout.keys;
+            var keys = this.model.layout.keys;
 
             var $row = '';
             var useSymbolField = field.indexOf('symbol') !== -1;
@@ -38,22 +38,22 @@ define(function(require){
             return this;
         },
         highlightKey: function(field, symbol){
-            var key = this.layout.getElementByText(symbol);
+            var key = this.model.layout.getElementByText(symbol);
             var $dfd = $.Deferred();
 
             setTimeout($.proxy(function(){
                 if(key) {
                     var $keyboard = $('.keyboard');
-                    if(this.activeKey) {
-                        $keyboard.find('.keyboard__row').eq(this.activeKey.posY)
-                            .find('div').eq(this.activeKey.posX)
+                    if(this.model.activeKey) {
+                        $keyboard.find('.keyboard__row').eq(this.model.activeKey.posY)
+                            .find('div').eq(this.model.activeKey.posX)
                             .removeClass('key_hightlighted');
                     }
                     $keyboard
                         .find('.keyboard__row').eq(key.posY)
                         .find('div').eq(key.posX)
                         .addClass('key_hightlighted');
-                    this.activeKey = key;
+                    this.model.activeKey = key;
                 }
                 $dfd.resolve({'key': key, 'symbol': symbol});
             }, this), this.ANIMATION_SPEED);
