@@ -2,7 +2,8 @@
 require.config({
     baseUrl: 'js',
     paths: {
-        jquery: '../vendor/jquery'
+        "jquery": '../vendor/jquery',
+        "localStorage": '../vendor/jquery.localStorage'
     }
 });
 require([
@@ -14,19 +15,12 @@ require([
     'collections/filter',
     'models/layout'
 ], function($, layoutCollection, keyboard, app, analyzer, filter, layout) {
-    var kb = keyboard.initialize({
-        layout: $.extend(layoutCollection.items[layoutCollection.LAYOUT_TYPE_QWERTY], {
-            filters: filter.LIST_FILTER_TYPE,
-            layout_mode: layout.LAYOUT_MODE_STANDARD
-        }),
+    var theApp = app.initialize({
         view: { "$container": $('.keyboard-container') }
     });
-    kb.view.render('symbol.text');
-
-    var theApp = app.initialize({ keyboard: kb });
+    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    analyzer.analyze(text, theApp.keyboard.layout);
     theApp.view.render();
 
-    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-    analyzer.analyze(text, kb.layout);
     theApp.view.renderOutput($('.console__output'), text);
 });

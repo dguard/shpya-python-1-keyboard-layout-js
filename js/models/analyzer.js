@@ -10,7 +10,6 @@ define(function(require){
 
             for(var i = 0; i < text.length; i++) {
                 for(var j = 0; j < this.layout.keys.length; j++) {
-                    debugger;
                     this.analyzeKey(this.layout.keys[j], text[i]);
                 }
             }

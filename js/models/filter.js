@@ -17,7 +17,7 @@ define(function (require) {
                 countMultiplier: function(key){
                     for(var i = 0; i < this.listPos.length; i++) {
                         for(var j = 0; j < this.listPos[i].length; j++) {
-                            if(i === key['posY'] && this.listPos[i][j] === key['posX']) {
+                            if(key['posY'] === i && key['posX'] === this.listPos[i][j]) {
                                 return 1;
                             }
                         }

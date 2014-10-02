@@ -3,7 +3,8 @@ define(function(require){
 
     var $ = require('jquery'),
         layout = require('collections/layout'),
-        filter = require('collections/filter');
+        filter = require('collections/filter'),
+        keyboard = require('models/keyboard');
 
     return {
         initialize: function(options){
@@ -13,7 +14,13 @@ define(function(require){
         render: function(){
             this._renderLayouts();
             this._renderFilters();
+            this._renderKeyboard();
+            $('#keyboard-view__select').val(this.model.fieldId);
+            $('#id_layouts').val(this.model.layoutType);
             this.assignEvents();
+        },
+        _renderKeyboard: function(){
+            this.model.keyboard.view.render(this.model.field);
         },
         _renderLayouts: function(){
             var $label = $('<label>', {
@@ -38,52 +45,39 @@ define(function(require){
                 var $label = $('<label>', {
                     'for': id
                 }).text(filter.items[i].name);
-
+                var isChecked = $.inArray(
+                    filter.LIST_FILTER_TYPE[i], this.model.keyboard.layout.filters
+                ) !== -1;
                 var $checkbox = $('<input>', {
                     'type': 'checkbox',
                     'value': filter.LIST_FILTER_TYPE[i],
-                    'id': id
+                    'id': id,
+                    "checked": isChecked
                 });
                 $('.filters__list').append($checkbox, $label, '<br>');
             }
         },
         assignEvents: function(){
-            var KEYBOARD_VIEW_SYMBOLS = 0;
-            var KEYBOARD_VIEW_RATE_OF_EFFICIENCY = 1;
-            var KEYBOARD_VIEW_RATE_OF_MAX_EFFICIENCY = 2;
-            var KEYBOARD_VIEW_USAGE = 3;
-            var KEYBOARD_VIEW_USAGE_PERCENT = 4;
-            var KEYBOARD_VIEW_RATIO_EFFICIENCY = 5;
-
-            var field;
-
-            $(document).on('change', '#keyboard-view__select', $.proxy(function(e){
-                var val = e.target.selectedIndex;
-                if(val === KEYBOARD_VIEW_SYMBOLS) {
-                    field = 'symbol.text';
-                } else if (val === KEYBOARD_VIEW_RATE_OF_EFFICIENCY) {
-                    field = 'rate';
-                } else if (val === KEYBOARD_VIEW_RATE_OF_MAX_EFFICIENCY) {
-                    field = 'rateOfMax';
-                } else if (val === KEYBOARD_VIEW_USAGE) {
-                    field = 'symbol.usage';
-                } else if (val === KEYBOARD_VIEW_USAGE_PERCENT) {
-                    field = 'symbol.usagePercent';
-                } else if (val === KEYBOARD_VIEW_RATIO_EFFICIENCY) {
-                    field = 'ratioEfficiency';
-                }
-                debugger;
-                this.model.keyboard.view.render(field, this.model.keyboard.layout.layout_mode);
-            }, this));
-
-            $(document).on('click', '.filters__list [type=checkbox]', $.proxy(function(e){
-                var filter = e.currentTarget.value;
-                if(e.currentTarget.checked) {
-                    this.model.keyboard.layout.addFilter(filter);
-                } else {
-                    this.model.keyboard.layout.removeFilter(filter);
-                }
-            }, this));
+            $(document).on('click', '.filters__list [type=checkbox]', $.proxy(this.onChangeFilter, this));
+            $(document).on('change', '#keyboard-view__select', $.proxy(this.onChangeField, this));
+            $(document).on('change', '#id_layouts', $.proxy(this.onChangeLayout, this));
+        },
+        onChangeLayout: function(e){
+            this.model.saveState();
+        },
+        onChangeFilter: function(e){
+            var filter = e.currentTarget.value;
+            if(e.currentTarget.checked) {
+                this.model.keyboard.layout.addFilter(filter);
+            } else {
+                this.model.keyboard.layout.removeFilter(filter);
+            }
+            this.model.saveState();
+        },
+        onChangeField: function(e){
+            var field = this.model.detectField(e.target.selectedIndex * 1);
+            this.model.keyboard.view.render(field);
+            this.model.saveState();
         },
         renderOutput: function($output, text){
             var self = this;
