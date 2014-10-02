@@ -13,20 +13,31 @@ define(function(require){
         for(var c = 0; c < this.LIST_LAYOUT_MODE.length; c++) {
             var layout_mode = this.LIST_LAYOUT_MODE[c];
 
+            var k = 0;
+
             for(var i = 0; i < options.keys[layout_mode].length; i++) {
                 for(var j = 0; j < options.keys[layout_mode][i].length; j++) {
-                    options.keys[layout_mode][i][j] = key.create({
-                        "text": options.keys[layout_mode][i][j],
-                        "symbol": symbol.create({'text': options.keys[layout_mode][i][j]}),
-                        "posX": j,
-                        "posY": i,
-                        "layout_mode": layout_mode
-                    });
+                    if(this.LAYOUT_MODE_STANDARD === layout_mode) {
+                        newKeys[k] = key.create({
+                            "symbols": [symbol.create({
+                                'text': options.keys[layout_mode][i][j],
+                                "layout_mode": layout_mode
+                            })],
+                            "posX": j,
+                            "posY": i
+                        });
+                    } else if(this.LAYOUT_MODE_UPPERCASE === layout_mode) {
+                        newKeys[k].symbols.push(
+                            symbol.create({
+                                "text": options.keys[layout_mode][i][j],
+                                "mod": "shift",
+                                "layout_mode": layout_mode
+                            })
+                        );
+                    }
+                    k++;
                 }
             }
-            newKeys = [].concat.apply(newKeys,
-                [].concat.apply([], options.keys[layout_mode])
-            );
         }
         options.keys = newKeys;
 
@@ -45,10 +56,12 @@ define(function(require){
                 }
                 this.statistics.maxRate = max;
             },
-            getElementByField: function(fieldName, value){
+            getElementByText: function(value){
                 for(var i = 0; i < this.keys.length; i++) {
-                    if(this.keys[i][fieldName] && this.keys[i][fieldName] === value) {
-                        return this.keys[i];
+                    for(var j = 0; j < this.keys[i].symbols.length; j++) {
+                        if(this.keys[i].symbols[j].text === value) {
+                            return this.keys[i];
+                        }
                     }
                 }
                 return null;
@@ -70,5 +83,4 @@ define(function(require){
         ],
         create: create
     };
-
 });

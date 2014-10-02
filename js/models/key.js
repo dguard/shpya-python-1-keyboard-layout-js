@@ -8,27 +8,27 @@ define(function(require){
         SIZE_STANDARD: SIZE_STANDARD,
         create: function(options) {
             return $.extend({
-                symbol: {},
-                posX: -1,
-                posY: -1,
-                size: SIZE_STANDARD,
-                rate: 100,
+                "symbols": [],
+                "posX": -1,
+                "posY": -1,
+                "size": SIZE_STANDARD,
+                "rate": 100,
+                "usage": 0,
                 render: function(field){
-                    var value = this;
-                    if(field.indexOf('.')) {
-                        var parts = field.split('.');
-                        while(parts.length) {
-                            var part = parts.splice(0, 1);
-                            value = value[part];
-                        }
-                    } else {
-                        value = this[field];
-                    }
-
-                    var self = this;
                     return $('<div>', {
                         'class': 'key key_size_' + self['size']
-                    }).text(value);
+                    }).text(this[field]);
+                },
+                renderSymbol: function(field, layout_mode){
+                    field = field.replace(/symbol\./, '');
+                    for(var i = 0; i < this.symbols.length; i++) {
+                        if(this.symbols[i]["layout_mode"] === layout_mode) {
+                            return $('<div>', {
+                                'class': 'key key_size_' + self['size']
+                            }).text(this.symbols[i][field]);
+                        }
+                    }
+                    return null;
                 }
             }, options);
         }

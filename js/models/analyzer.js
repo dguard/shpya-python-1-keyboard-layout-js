@@ -5,44 +5,65 @@ define(function(require){
 
     return {
         analyze: function(text, layout){
-            var previousKey = '';
+            this.layout = layout;
+            this.previousKey = '';
 
             for(var i = 0; i < text.length; i++) {
-                for(var j = 0; j < layout.keys.length; j++) {
-                    if(text[i] === layout.keys[j].text) {
-                        layout.keys[j].symbol.usage++;
-                        this._updatePreFilter(layout, previousKey, layout.keys[j]);
-                        previousKey = layout.keys[j];
-                        break;
-                    }
+                for(var j = 0; j < this.layout.keys.length; j++) {
+                    this.analyzeKey(this.layout.keys[j], text[i]);
                 }
             }
-            layout.statistics['textCount'] = text.length;
-            this._updatePostFilters(layout);
+            this.layout.statistics['textCount'] = text.length;
+            this._updatePostFilters();
         },
-        _updatePreFilter: function(layout, previousKey, currentKey){
-            if(layout.filters.indexOf(filter.FILTER_TYPE_CHANGE_HANDS) !== -1 && previousKey
+        analyzeKey: function(key, symbol){
+            for(var k = 0; k < key.symbols.length; k++) {
+
+                if(key.symbols[k] === symbol) {
+                    key.symbols[k].usage++;
+                    key.usage++;
+
+                    this._updatePreFilter(this.previousKey, key);
+                    this.previousKey = key;
+                    break;
+                }
+            }
+        },
+        _updatePreFilter: function(previousKey, currentKey){
+            if(this.layout.filters.indexOf(filter.FILTER_TYPE_CHANGE_HANDS) !== -1 && previousKey
                 && filter.items[filter.FILTER_TYPE_CHANGE_HANDS].handsAreChanged(previousKey, currentKey)
             ) {
-                !layout.statistics['changeHandsCount'] && (layout.statistics['changeHandsCount'] = 0);
-                layout.statistics['changeHandsCount']++;
+                !this.layout.statistics['changeHandsCount'] && (this.layout.statistics['changeHandsCount'] = 0);
+                this.layout.statistics['changeHandsCount']++;
             }
         },
-        _updatePostFilters: function(layout){
-            for(var i = 0; i < layout.filters.length; i++) {
-                filter.items[layout.filters[i]].run(layout.keys);
+        _updatePostFilters: function(){
+            for(var i = 0; i < this.layout.filters.length; i++) {
+                filter.items[this.layout.filters[i]].run(this.layout.keys);
             }
-            layout.countMaxRate();
-            for(i = 0; i < layout.keys.length; i++) {
-                layout.keys[i].symbol.usagePercent = helper.rtrimNulls(
-                    (layout.keys[i].symbol.usage / layout.statistics['textCount'] * 100).toFixed(1), 1
+            this.layout.countMaxRate();
+            for(i = 0; i < this.layout.keys.length; i++) {
+                for(var j = 0; j < this.layout.keys[i].symbols.length; j++) {
+                    this.countUsagePercent(this.layout.keys[i]);
+                    this.countRatioEfficiency(this.layout.keys[i]);
+                }
+                this.layout.keys[i].rateOfMax = helper.rtrimNulls(
+                    (this.layout.keys[i].rate / this.layout['statistics']['maxRate']) * 100, 1
                 );
-                layout.keys[i].rateOfMax = helper.rtrimNulls(
-                    (layout.keys[i].rate / layout['statistics']['maxRate']) * 100, 1
+            }
+        },
+        countUsagePercent: function(key){
+            for(var j = 0; j < key.symbols.length; j++) {
+                key.symbols[j].usagePercent = helper.rtrimNulls(
+                    key.symbols[j].usage / this.layout.statistics['textCount'] * 100, 1
                 );
-                layout.keys[i].ratioEfficiency = helper.rtrimNulls(
-                    (layout.keys[i].rate * layout.keys[i].symbol.usage)
-                        / (layout['statistics']['maxRate'] * layout['statistics']['textCount']) * 100, 1
+            }
+        },
+        countRatioEfficiency: function(key){
+            for(var j = 0; j < key.symbols.length; j++) {
+                key.ratioEfficiency = helper.rtrimNulls(
+                    (key.rate * key.symbols[j].usage)
+                        / (this.layout['statistics']['maxRate'] * this.layout['statistics']['textCount']) * 100, 1
                 );
             }
         }

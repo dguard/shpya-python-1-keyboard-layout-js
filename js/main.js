@@ -11,18 +11,19 @@ require([
     'views/keyboard',
     'views/app',
     'models/analyzer',
-    'collections/filter'
-], function($, layout, keyboard, appView, analyzer, filter) {
-    var text = "Hello World";
+    'collections/filter',
+    'models/layout'
+], function($, layoutCollection, keyboard, appView, analyzer, filter, layout) {
+    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-    var layoutQwerty = layout.items[layout.LAYOUT_TYPE_QWERTY];
+    var layoutQwerty = layoutCollection.items[layoutCollection.LAYOUT_TYPE_QWERTY];
     layoutQwerty.filters = filter.LIST_FILTER_TYPE;
     analyzer.analyze(text, layoutQwerty);
 
     var kb = keyboard.initialize({
         '$container': $('.keyboard-container'),
         layout: layoutQwerty
-    }).render('text');
+    }).render('symbol.text', layout.LAYOUT_MODE_STANDARD);
 
     var app_view = appView.initialize({ keyboard: kb });
     app_view.render();

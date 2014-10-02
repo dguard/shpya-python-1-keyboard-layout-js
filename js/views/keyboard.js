@@ -14,27 +14,31 @@ define(function(require){
 
             return this;
         },
-        render: function(field){
+        render: function(field, layout_mode){
             var $table = $('<div>', {'class': 'keyboard'});
             var keys = this.layout.keys;
 
             var $row = '';
+            var useSymbolField = field.indexOf('symbol') !== -1;
 
             for(var i = 0; i < keys.length; i++) { // rows as arrays
                 var key = keys[i];
-                if(key['layout_mode'] !== 'standard') continue;
                 if(key['posX'] === 0) {
                     $row && ($table.append($row));
                     $row = $('<div>', {'class': 'keyboard__row'});
                 }
-                $row.append(key.render(field));
+                if(useSymbolField) {
+                    $row.append(key.renderSymbol(field, layout_mode));
+                } else {
+                    $row.append(key.render(field));
+                }
             }
             $table.append($row);
             this.$container.html($table);
             return this;
         },
         highlightKey: function(field, symbol){
-            var key = this.layout.getElementByField(field, symbol);
+            var key = this.layout.getElementByText(symbol);
             var $dfd = $.Deferred();
 
             setTimeout($.proxy(function(){
@@ -51,7 +55,7 @@ define(function(require){
                         .addClass('key_hightlighted');
                     this.activeKey = key;
                 }
-                $dfd.resolve({'key': key});
+                $dfd.resolve({'key': key, 'symbol': symbol});
             }, this), this.ANIMATION_SPEED);
 
             return $dfd.promise();

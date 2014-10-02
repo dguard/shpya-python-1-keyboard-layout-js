@@ -81,7 +81,7 @@ define(function(require){
                 var $dfd = self.keyboard.highlightKey('text', text[index]);
                 $dfd.done(function(data){
                     if(data.key) {
-                        $output.append(data.key['text']);
+                        $output.append(data.symbol);
                         $output.scrollTop($output[0].scrollHeight - $output.height());
                     }
                     if(index < text.length-1) {
