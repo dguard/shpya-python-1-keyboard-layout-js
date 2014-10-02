@@ -15,17 +15,23 @@ define(function(require){
                 "rate": 100,
                 "usage": 0,
                 render: function(field){
+                    var self = this;
                     return $('<div>', {
                         'class': 'key key_size_' + self['size']
                     }).text(this[field]);
                 },
                 renderSymbol: function(field, layout_mode){
+                    var self = this;
                     field = field.replace(/symbol\./, '');
                     for(var i = 0; i < this.symbols.length; i++) {
                         if(this.symbols[i]["layout_mode"] === layout_mode) {
+                            var val = this.symbols[i][field];
+                            if(val == '\n') {
+                                val = "&nbsp;";
+                            }
                             return $('<div>', {
                                 'class': 'key key_size_' + self['size']
-                            }).text(this.symbols[i][field]);
+                            }).html(val);
                         }
                     }
                     return null;

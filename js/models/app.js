@@ -10,6 +10,7 @@ define(function(require){
 
     return {
         initialize: function(options){
+            this.text = options['text'];
             this.view = appView.initialize($.extend({
                 model: this
             }, options['view']));

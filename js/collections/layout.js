@@ -1,12 +1,16 @@
 "use strict";
 define(function(require){
-    var layout = require('models/layout');
+    var layout = require('models/layout'),
+        keyboardView = require('views/keyboard');
 
     var obj = {
         LAYOUT_TYPE_QWERTY: 0,
         LAYOUT_TYPE_COLEMAK: 1,
         LAYOUT_TYPE_DWORAK: 2
     }, items = [];
+
+    var KEY_ENTER = {"text": '\n', "size": keyboardView.SIZE_MEDIUM};
+    var KEY_SPACE = {"text": ' ', "size": keyboardView.SIZE_LARGE};
 
     obj['LIST_LAYOUT_TYPE'] = [
         obj.LAYOUT_TYPE_QWERTY,
@@ -20,16 +24,15 @@ define(function(require){
             standard: [
                 ['`','1','2','3','4','5','6','7','8','9','0','-','='],
                 ['q','w','e','r','t','y','u','i','o','p','[',']','\\'],
-                ['a','s','d','f','g','h','j','k','l',';','\''],
+                ['a','s','d','f','g','h','j','k','l',';','\'', KEY_ENTER],
                 ['z','x','c','v','b','n','m',',','.','/'],
-                [' ']
+                [KEY_SPACE],
             ],
             uppercase: [
                 ['~','!','@','#','$','%','^','&','*','(',')','_','+'],
                 ['Q','W','E','R','T','Y','U','I','O','P','{','}','|'],
                 ['A','S','D','F','G','H','J','K','L',':','"'],
-                ['Z','X','C','V','B','N','M','<','>','?'],
-                [' ']
+                ['Z','X','C','V','B','N','M','<','>','?']
             ]
         }
     });
@@ -40,16 +43,15 @@ define(function(require){
             standard: [
                 ['`','1','2','3','4','5','6','7','8','9','0','-','='],
                 ['q','w','f','p','g','j','l','u','y',';','[',']','\\'],
-                ['a','r','s','t','d','h','n','e','i','o','\''],
+                ['a','r','s','t','d','h','n','e','i','o','\'', KEY_ENTER],
                 ['z','x','c','v','b','k','m',',','.','/'],
-                [' ']
+                [KEY_SPACE],
             ],
             uppercase: [
                 ['~','!','@','#','$','%','^','&','*','(',')','_','+'],
                 ['Q','W','F','P','G','J','L','U','Y',':','{','}','|'],
                 ['A','R','S','T','D','H','N','E','I','O','"'],
-                ['Z','X','C','V','B','K','M','<','>','?'],
-                [' ']
+                ['Z','X','C','V','B','K','M','<','>','?']
             ]
         }
     });
@@ -60,16 +62,15 @@ define(function(require){
             standard: [
                 ['`','1','2','3','4','5','6','7','8','9','0','-','='],
                 ['\'',',','.','p','y','f','g','c','r','l','/','=','\\'],
-                ['a','o','e','u','i','d','h','t','n','s','-'],
+                ['a','o','e','u','i','d','h','t','n','s','-', KEY_ENTER],
                 [';','q','j','k','x','b','m','w','v','z'],
-                [' ']
+                [KEY_SPACE],
             ],
             uppercase: [
                 ['~','!','@','#','$','%','^','&','*','(',')','_','+'],
                 ['"','<','>','P','Y','F','G','C','R','L','?','+','|'],
                 ['A','O','E','U','I','D','H','T','N','S','_'],
-                [':','Q','J','K','X','B','M','W','V','Z'],
-                [' ']
+                [':','Q','J','K','X','B','M','W','V','Z']
             ]
         }
     });

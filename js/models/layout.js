@@ -18,14 +18,26 @@ define(function(require){
             for(var i = 0; i < options.keys[layout_mode].length; i++) {
                 for(var j = 0; j < options.keys[layout_mode][i].length; j++) {
                     if(this.LAYOUT_MODE_STANDARD === layout_mode) {
-                        newKeys[k] = key.create({
-                            "symbols": [symbol.create({
-                                'text': options.keys[layout_mode][i][j],
-                                "layout_mode": layout_mode
-                            })],
-                            "posX": j,
-                            "posY": i
-                        });
+                        // TODO refactor
+                        if(typeof options.keys[layout_mode][i][j] === 'object') {
+                            newKeys[k] = key.create($.extend({
+                                "symbols": [symbol.create({
+                                    'text': options.keys[layout_mode][i][j]['text'],
+                                    "layout_mode": layout_mode
+                                })],
+                                "posX": j,
+                                "posY": i
+                            }, options.keys[layout_mode][i][j]));
+                        } else {
+                            newKeys[k] = key.create({
+                                "symbols": [symbol.create({
+                                    'text': options.keys[layout_mode][i][j],
+                                    "layout_mode": layout_mode
+                                })],
+                                "posX": j,
+                                "posY": i
+                            });
+                        }
                     } else if(this.LAYOUT_MODE_UPPERCASE === layout_mode) {
                         newKeys[k].symbols.push(
                             symbol.create({

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Test Keyboard.js</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
     <meta charset="utf-8">
 </head>
@@ -11,49 +12,58 @@
 <script data-main="js/main" src="vendor/require.js"></script>
 
 <div class="container">
-    <div class="keyboard-container"></div>
 
-    <div class="console">
-        <textarea class="console__output"></textarea>
+    <div class="page-header">
+        <h1>Тестируй раскладки!</h1>
     </div>
 
     <div class="row">
-        <div class="column1">
-            <div class="layouts">
-                <h2>Раскладки</h2>
+        <div class="filters col-md-4 jumbotron">
+            <h2 class="text-center">Фильтры</h2>
 
-                <div class="layouts__list">
+            <div class="filters__list"></div>
+
+            <h2 class="text-center">Клавиатура</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="layouts">
+                        <div class="layouts__list text-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="keyboard-view">
+                        <label for="keyboard-view__select" class="text-center">Показывать</label>
+
+                        <select id="keyboard-view__select" class="form-control">
+                            <option value="0">Символы</option>
+                            <option value="1">Рейтинг эффективности</option>
+                            <option value="2">Эффективность относительно максимальной</option>
+                            <option value="3">Количество использований</option>
+                            <option value="4">Процент использования</option>
+                            <option value="5">Эффективность и использование от максимального</option>
+                        </select>
+
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="keyboard-section col-md-8">
+            <div class="keyboard-container"></div>
 
-            <div class="keyboard-view">
-                <label for="keyboard-view__select">Показывать</label>
-
-                <select id="keyboard-view__select">
-                    <option value="0">Символы</option>
-                    <option value="1">Рейтинг эффективности</option>
-                    <option value="2">Эффективность относительно максимальной</option>
-                    <option value="3">Количество использований</option>
-                    <option value="4">Процент использования</option>
-                    <option value="5">Эффективность и использование от максимального</option>
-                </select>
-
+            <div class="console">
+                <textarea class="console__output"></textarea>
             </div>
         </div>
-        <div class="filters column1">
-            <h2>Фильтры</h2>
 
-            <div class="filters__list">
-            </div>
-        </div>
-    </div>
+        <!--<div class="statistics">-->
+            <!--<h2>Статистика</h2>-->
+            <!--<ul class="statistics__list">-->
+                <!--<li>Использовано клавиш: 2000</li>-->
+                <!--<li>Процент чередования рук: 10%</li>-->
+            <!--</ul>-->
+        <!--</div>-->
 
-    <div class="statistics">
-        <h2>Статистика</h2>
-        <ul class="statistics__list">
-            <li>Использовано клавиш: 2000</li>
-            <li>Процент чередования рук: 10%</li>
-        </ul>
     </div>
 
 </div>

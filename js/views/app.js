@@ -25,9 +25,10 @@ define(function(require){
         _renderLayouts: function(){
             var $label = $('<label>', {
                 'for': 'id_layouts'
-            }).text('Английские');
+            }).text('Раскладка');
             var $select = $('<select>', {
-                'id': 'id_layouts'
+                'id': 'id_layouts',
+                "class": "form-control"
             });
 
             for(var i =0; i < layout.items.length;i++) {
@@ -44,7 +45,7 @@ define(function(require){
                 var id = 'id_filter_' + i;
                 var $label = $('<label>', {
                     'for': id
-                }).text(filter.items[i].name);
+                });
                 var isChecked = $.inArray(
                     filter.LIST_FILTER_TYPE[i], this.model.keyboard.layout.filters
                 ) !== -1;
@@ -54,7 +55,9 @@ define(function(require){
                     'id': id,
                     "checked": isChecked
                 });
-                $('.filters__list').append($checkbox, $label, '<br>');
+                $('.filters__list').append(
+                    $('<div>', {"class": 'checkbox'}).html($label.append($checkbox, filter.items[i].name))
+                );
             }
         },
         assignEvents: function(){
@@ -79,9 +82,9 @@ define(function(require){
             this.model.keyboard.view.render(field);
             this.model.saveState();
         },
-        renderOutput: function($output, text){
+        renderOutput: function($output){
             var self = this;
-            highlightKey(text, 0);
+            highlightKey(self.model.text, 0);
 
             function highlightKey(text, index){
                 var $dfd = self.model.keyboard.view.highlightKey('text', text[index]);

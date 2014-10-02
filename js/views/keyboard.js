@@ -6,7 +6,7 @@ define(function(require){
         SIZE_STANDARD: 'standard',
         SIZE_MEDIUM: 'medium',
         SIZE_LARGE: 'large',
-        ANIMATION_SPEED: 0,
+        ANIMATION_SPEED: 10,
         initialize: function(options){
             this.$container = options["$container"];
             this.model = options["model"];
