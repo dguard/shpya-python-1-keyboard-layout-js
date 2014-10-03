@@ -120,7 +120,7 @@ body {
     margin: 0 0 10px;
 }
 
-.statistics ul {
+.statistics p {
     text-align: left;
-    list-style: none;
+    font-size: 16px;
 }
